@@ -37,7 +37,7 @@ const fullScreenMapEnabled = computed(() => {
 })
 
 onMounted(async () => {
-  localStorage.clear();
+  // localStorage.clear();
   MainStore.appVersion = import.meta.env.VITE_VERSION;
   MainStore.isMobileDevice = isMobileDevice();
   MainStore.isMac = isMac();
