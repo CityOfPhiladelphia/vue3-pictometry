@@ -3,10 +3,14 @@ import isMobileDevice from './util/is-mobile-device';
 import isMac from './util/is-mac';
 
 import MapPanel from '@/components/MapPanel.vue';
-import CyclomediaPanel from '@/components/CyclomediaPanel.vue';
+import EagleviewPanel from '@/components/EagleviewPanel.vue';
 
 import { useMainStore } from './stores/MainStore';
 const MainStore = useMainStore();
+import { useMapStore } from './stores/MapStore';
+const MapStore = useMapStore();
+import { useGeocodeStore } from './stores/GeocodeStore';
+const GeocodeStore = useGeocodeStore();
 
 import AddressSearchControl from '@/components/AddressSearchControl.vue';
 
@@ -17,16 +21,15 @@ if (!import.meta.env.VITE_PUBLICPATH) {
 }
 if (import.meta.env.VITE_DEBUG == 'true') console.log('import.meta.env.VITE_PUBLICPATH:', import.meta.env.VITE_PUBLICPATH, 'MainStore.publicPath:', MainStore.publicPath);
 
-
-import { onMounted, computed } from "vue";
+import { watch, onMounted, computed } from "vue";
 
 // ROUTER
 import { useRouter, useRoute } from 'vue-router';
 const route = useRoute();
 const router = useRouter();
 
-const fullScreenCyclomediaEnabled = computed(() => {
-  return MainStore.fullScreenCyclomediaEnabled;
+const fullScreenEagleviewEnabled = computed(() => {
+  return MainStore.fullScreenEagleviewEnabled;
 })
 
 const fullScreenMapEnabled = computed(() => {
@@ -34,6 +37,7 @@ const fullScreenMapEnabled = computed(() => {
 })
 
 onMounted(async () => {
+  localStorage.clear();
   MainStore.appVersion = import.meta.env.VITE_VERSION;
   MainStore.isMobileDevice = isMobileDevice();
   MainStore.isMac = isMac();
@@ -80,6 +84,17 @@ const links = [
   },
 ];
 
+watch(
+  () => GeocodeStore.aisData,
+  async newAddress => {
+    if (import.meta.env.VITE_DEBUG == 'true') console.log('App aisData watch, newAddress:', newAddress);
+    if (newAddress.features && newAddress.features[0].geometry.coordinates.length) {
+      const newCoords = newAddress.features[0].geometry.coordinates;
+      MapStore.currentAddressCoords = newCoords;
+    }
+  }
+)
+
 </script>
 
 <template>
@@ -89,7 +104,7 @@ const links = [
   >Skip to main content</a>
 
   <app-header
-    app-title="Cyclomedia"
+    app-title="Pictometry"
     app-link="/"
     :is-sticky="true"
     :is-fluid="true"
@@ -103,24 +118,24 @@ const links = [
   <main
     id="main"
     class="main invisible-scrollbar"
-  >
+    >
+    <!-- :style="{ 'flex-direction': 'column-reverse' }" -->
     <AddressSearchControl :input-id="'map-search-input'" />
 
     <!-- MAP PANEL ON LEFT - right now only contains the address input -->
     <div
-      v-if="!isMobileDevice() && MainStore.windowDimensions.width > 768 && !fullScreenCyclomediaEnabled"
+      v-if="!isMobileDevice() && MainStore.windowDimensions.width > 768 && !fullScreenEagleviewEnabled"
       class="map-panel-holder"
       :class="fullScreenMapEnabled ? 'topics-holder-full' : ''"
     >
       <map-panel />
     </div>
-
     <div
       v-show="!fullScreenMapEnabled || isMobileDevice() || MainStore.windowDimensions.width <= 768"
-      class="cyclomedia-holder"
-      :class="fullScreenCyclomediaEnabled || MainStore.windowDimensions.width <= 768 ? 'cyclomedia-holder-full' : ''"
+      class="eagleview-holder"
+      :class="fullScreenEagleviewEnabled || MainStore.windowDimensions.width <= 768 ? 'eagleview-holder-full' : ''"
     >
-      <cyclomedia-panel />
+      <eagleview-panel />
     </div>
 
     <div

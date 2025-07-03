@@ -34,11 +34,11 @@ a {
   // margin-top: 0px !important;
 }
 
-.cyclomedia-holder-mobile {
+.eagleview-holder-mobile {
   height: 250px;
 }
 
-.cyclomedia-holder {
+.eagleview-holder {
   display: flex;
   flex-direction: column;
   width: 50% !important;
@@ -47,7 +47,7 @@ a {
   height: calc(100vh - 110px);
 }
 
-.cyclomedia-holder-full {
+.eagleview-holder-full {
   width: 100% !important;
 }
 
@@ -120,7 +120,7 @@ a {
   height: calc(100vh - 110px);
 }
 
-.map-panel.cyclomedia-eagleview {
+.map-panel.eagleview-eagleview {
   // height: 51.5%;
   height: 52.5%;
 }
@@ -251,7 +251,7 @@ only screen and (max-width: 760px),
     padding-bottom: 0px !important;
   }
 
-  .cyclomedia-holder {
+  .eagleview-holder {
     height: 50% !important;
   }
 
@@ -311,7 +311,7 @@ only screen and (max-width: 760px),
     height: 100%;
   }
 
-  .map-panel.cyclomedia-eagleview {
+  .map-panel.eagleview-eagleview {
     height: 450px;
   }
 

@@ -25,16 +25,12 @@ watch(
   }
 )
 
-const fullScreenCyclomediaEnabled = computed(() => {
-  return MainStore.fullScreenCyclomediaEnabled;
+const fullScreenEagleviewEnabled = computed(() => {
+  return MainStore.fullScreenEagleviewEnabled;
 });
 
 const isMobileOrTablet = computed(() =>{
   return MainStore.isMobileDevice;
-});
-
-const cyclomediaActive = computed(() => {
-  return MapStore.cyclomediaOn;
 });
 
 const eagleviewActive = computed(() => {
@@ -42,8 +38,8 @@ const eagleviewActive = computed(() => {
 });
 
 const picOrCycloActive = computed(() => {
-  // if (import.meta.env.VITE_DEBUG == 'true') console.log('cyclomediaActive:', cyclomediaActive, 'eagleviewActive:', eagleviewActive);
-  if (cyclomediaActive.value || eagleviewActive.value) {
+  // if (import.meta.env.VITE_DEBUG == 'true') console.log('eagleviewActive:', eagleviewActive, 'eagleviewActive:', eagleviewActive);
+  if (eagleviewActive.value) {
     return true;
   }
   return false;
@@ -59,14 +55,14 @@ watch (
 )
 
 const currentIcon = computed(() => {
-  if (fullScreenCyclomediaEnabled.value) {
+  if (fullScreenEagleviewEnabled.value) {
     return 'caret-right';
   }
   return 'caret-left';
 });
-  
+
 const setYPosition = (dim) => {
-  // if (import.meta.env.VITE_DEBUG == 'true') console.log('setYPosition dim:', dim, typeof dim);
+  if (import.meta.env.VITE_DEBUG == 'true') console.log('setYPosition dim:', dim, typeof dim);
   if (!picOrCycloActive.value) {
     buttonY.value = (dim-48)/2 + 'px';
   } else {
@@ -76,7 +72,7 @@ const setYPosition = (dim) => {
 
 const setXPosition = async (dim) => {
   // if (import.meta.env.VITE_DEBUG == 'true') console.log('setXPosition dim:', dim, typeof dim);
-  if (fullScreenCyclomediaEnabled.value) {
+  if (fullScreenEagleviewEnabled.value) {
     buttonX.value = '0px';
   } else {
     buttonX.value = dim/2 + 'px';
@@ -84,10 +80,10 @@ const setXPosition = async (dim) => {
 }
 
 const handleFullScreenMapToggleButtonClick = () => {
-  const prevFullScreenCyclomediaEnabled = MainStore.fullScreenCyclomediaEnabled;
-  const nextFullScreenCyclomediaEnabled = !prevFullScreenCyclomediaEnabled;
-  MainStore.fullScreenCyclomediaEnabled = nextFullScreenCyclomediaEnabled;
-  if (nextFullScreenCyclomediaEnabled) {
+  const prevFullScreenEagleviewEnabled = MainStore.fullScreenEagleviewEnabled;
+  const nextFullScreenEagleviewEnabled = !prevFullScreenEagleviewEnabled;
+  MainStore.fullScreenEagleviewEnabled = nextFullScreenEagleviewEnabled;
+  if (nextFullScreenEagleviewEnabled) {
     buttonX.value = '0px';
   } else {
     buttonX.value = MainStore.windowDimensions.width/2 + 'px';
@@ -101,11 +97,11 @@ const handleFullScreenMapToggleButtonClick = () => {
   <button
     v-if="!isMobileOrTablet"
     id="map-toggle-tab"
-    :title="fullScreenCyclomediaEnabled ? 'Reduce Cyclomedia Panel' : 'Expand Cyclomedia Panel'"
-    :style="{ top: buttonY, left: buttonX }"
+    :title="fullScreenEagleviewEnabled ? 'Reduce Eagleview Panel' : 'Expand Eagleview Panel'"
     class="toggle-tab"
     tabindex="0"
     @click="handleFullScreenMapToggleButtonClick"
+    :style="{ top: buttonY, left: 0 }"
   >
     <!-- <span class="align-span"> -->
     <font-awesome-icon

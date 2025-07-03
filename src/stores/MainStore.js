@@ -9,7 +9,7 @@ export const useMainStore = defineStore("MainStore", {
       isMobileDevice: null,
       isMac: null,
       fullScreenMapEnabled: false,
-      fullScreenCyclomediaEnabled: true,
+      fullScreenEagleviewEnabled: true,
       windowDimensions: {},
     };
   },

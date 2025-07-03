@@ -34,17 +34,13 @@ const isMobileOrTablet = computed(() =>{
   return MainStore.isMobileDevice;
 });
 
-const cyclomediaActive = computed(() => {
-  return MapStore.cyclomediaOn;
-});
-
 const eagleviewActive = computed(() => {
   return MapStore.eagleviewOn;
 });
 
 const picOrCycloActive = computed(() => {
-  // if (import.meta.env.VITE_DEBUG == 'true') console.log('cyclomediaActive:', cyclomediaActive, 'eagleviewActive:', eagleviewActive);
-  if (cyclomediaActive.value || eagleviewActive.value) {
+  // if (import.meta.env.VITE_DEBUG == 'true') console.log('eagleviewActive:', eagleviewActive, 'eagleviewActive:', eagleviewActive);
+  if (eagleviewActive.value || eagleviewActive.value) {
     return true;
   }
   return false;
@@ -67,11 +63,11 @@ const currentIcon = computed(() => {
 });
   
 const setYPosition = (dim) => {
-  // if (import.meta.env.VITE_DEBUG == 'true') console.log('setYPosition dim:', dim, typeof dim);
+  if (import.meta.env.VITE_DEBUG == 'true') console.log('setYPosition dim:', dim, typeof dim);
   if (!picOrCycloActive.value) {
-    buttonY.value = (dim-48)/2 + 'px';
+    buttonY.value = (dim+96)/2 + 'px';
   } else {
-    buttonY.value = (dim-48)/4 + 'px';
+    buttonY.value = (dim+96)/4 + 'px';
   }
 }
 
@@ -102,7 +98,7 @@ const handleFullScreenTopicsToggleButtonClick = () => {
   <button
     v-if="!isMobileOrTablet"
     id="topics-toggle-tab"
-    :title="fullScreenMapEnabled ? 'Show Cyclomedia Panel' : 'Expand Map Panel'"
+    :title="fullScreenMapEnabled ? 'Show Eagleview Panel' : 'Expand Map Panel'"
     :style="{ top: buttonY, right: buttonX }"
     class="toggle-tab"
     tabindex="0"

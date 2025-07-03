@@ -12,29 +12,18 @@ export const useMapStore = defineStore("MapStore", {
       initialized: false,
       imageryOn: false,
       imagerySelected: '2024',
-      cyclomediaOn: false,
-      cyclomediaInitialized: false,
-      cyclomediaRecordingsOn: false,
-      cyclomediaCameraYaw: null,
-      cyclomediaCameraHFov: null,
-      cyclomediaCameraXyz: null,
-      cyclomediaCameraLngLat: null,
-      cyclomediaYear: null,
-      clickedCyclomediaRecordingCoords: null,
+      eagleviewOn: false,
+      eagleviewInitialized: false,
+      eagleviewRecordingsOn: false,
+      eagleviewCameraYaw: null,
+      eagleviewCameraHFov: null,
+      eagleviewCameraXyz: null,
+      eagleviewCameraLngLat: null,
+      eagleviewYear: null,
+      clickedEagleviewRecordingCoords: null,
     };
   },
   actions: {
-    setCyclomediaCameraYaw(yaw) {
-      this.cyclomediaCameraYaw = yaw;
-    },
-    setCyclomediaCameraLngLat(lngLat, xyz) {
-      this.cyclomediaCameraXyz = xyz;
-      this.cyclomediaCameraLngLat = lngLat;
-    },
-    setCyclomediaCameraHFov(hfov) {
-      if (import.meta.env.VITE_DEBUG == 'true') console.log('MapStore.setCyclomediaCameraHFov is running, hfov:', hfov);
-      this.cyclomediaCameraHFov = hfov;
-    },
     setMap(map) {
       if (import.meta.env.VITE_DEBUG == 'true') console.log('MapStore.setMap is running, map:', map);
       this.map = map;

@@ -56,7 +56,7 @@ const yPosition = computed(() => {
 
 <template>
   <div
-    :class="fullScreenMapEnabled ? 'holder holder-map' : 'holder holder-cyclomedia'"
+    :class="fullScreenMapEnabled ? 'holder holder-map' : 'holder holder-eagleview'"
     :style="{ top: yPosition, width: holderWidth }"
   >
     <div class="field has-addons" :style="{ width: '100%' }">
@@ -123,7 +123,7 @@ const yPosition = computed(() => {
   left: 10px;
 }
 
-.holder-cyclomedia {
+.holder-eagleview {
   right: 10px;
 }
 
