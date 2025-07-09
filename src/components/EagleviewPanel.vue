@@ -93,6 +93,8 @@ onMounted( async() => {
     });
   }
 
+
+  // console.log('test');
   map.getLayers();
   map.on('onLayersDataLoad', (layerData) => {
     map.updateLayers(
@@ -106,6 +108,7 @@ onMounted( async() => {
     );
   });
   
+
 });
 
 const popoutClicked = () => {
