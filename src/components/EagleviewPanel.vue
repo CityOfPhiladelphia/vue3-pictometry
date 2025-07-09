@@ -93,6 +93,19 @@ onMounted( async() => {
     });
   }
 
+  map.getLayers();
+  map.on('onLayersDataLoad', (layerData) => {
+    map.updateLayers(
+      {
+        filter: (layer) => {
+          console.log('layer:', layer);
+          layer.visible = true;
+          console.log('layer', layer);
+        }
+      }
+    );
+  });
+
   // map.on('onViewUpdate', (value) => {
   //   if (import.meta.env.VITE_DEBUG == 'true') console.log('eagleview view has been updated, value:', value);
   //   if (value.zoom < 18) {
