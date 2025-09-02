@@ -21,6 +21,8 @@ export const useMapStore = defineStore("MapStore", {
       eagleviewCameraLngLat: null,
       eagleviewYear: null,
       clickedEagleviewRecordingCoords: null,
+      eagleviewParcelsOn: false,
+      eagleviewLabelsOn: false,
     };
   },
   actions: {
