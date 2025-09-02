@@ -18,7 +18,7 @@ const toggleLabels = () => {
   <button
     class="eagleview-parcels-toggle"
     :class="eagleviewLabelsOn ? 'active' : 'inactive'"
-    :title="eagleviewLabelsOn ? 'Turn parcels off' : 'Turn parcels on'"
+    :title="eagleviewLabelsOn ? 'Turn labels off' : 'Turn labels on'"
     type="button"
     @click="toggleLabels"
   >
