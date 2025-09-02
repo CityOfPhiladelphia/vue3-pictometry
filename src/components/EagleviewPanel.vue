@@ -6,14 +6,11 @@ import { point } from '@turf/helpers';
 import axios from 'axios';
 
 import { useMapStore } from '@/stores/MapStore';
-// import { config } from 'maplibre-gl';
 const MapStore = useMapStore();
 
-import { useRouter, useRoute } from 'vue-router';
-const route = useRoute();
-const router = useRouter();
-
 import FullScreenEagleviewToggleTab from '@/components/FullScreenEagleviewToggleTab.vue';
+import ParcelsControl from '@/components/ParcelsControl.vue';
+import LabelsControl from '@/components/LabelsControl.vue';
 
 const clientId = import.meta.env.VITE_EAGLEVIEW_CLIENT_ID;
 const clientSecret = import.meta.env.VITE_EAGLEVIEW_CLIENT_SECRET;
@@ -68,6 +65,40 @@ watch(
   }
 );
 
+watch(
+  () => MapStore.eagleviewParcelsOn,
+  newEagleviewParcelsOn => {
+    if (map) {
+      map.updateLayers(
+        {
+          filter: (layer) => {
+            if (layer.name == 'US Parcels') {
+              layer.visible = newEagleviewParcelsOn;
+            }
+          }
+        }
+      );
+    }
+  }
+)
+
+watch(
+  () => MapStore.eagleviewLabelsOn,
+  newEagleviewLabelsOn => {
+    if (map) {
+      map.updateLayers(
+        {
+          filter: (layer) => {
+            if (layer.name == 'Streets') {
+              layer.visible = newEagleviewLabelsOn;
+            }
+          }
+        }
+      );
+    }
+  }
+)
+
 onMounted( async() => {
   // localStorage.clear();
   const response = await axios(options);
@@ -93,30 +124,20 @@ onMounted( async() => {
     });
   }
 
-
-  // console.log('test');
   map.getLayers();
   map.on('onLayersDataLoad', (layerData) => {
     map.updateLayers(
       {
         filter: (layer) => {
           console.log('layer:', layer);
-          layer.visible = true;
+          layer.visible = false;
           console.log('layer', layer);
         }
       }
     );
   });
-  
 
 });
-
-const popoutClicked = () => {
-  window.open('//pictometry.phila.gov/?lat=' + MapStore.currentAddressCoords[1] + '&lng=' + MapStore.currentAddressCoords[0], '_blank');
-  let startQuery = { ...route.query };
-  delete startQuery['obliqueview'];
-  router.push({ query: { ...startQuery }});
-}
 
 </script>
 
@@ -124,12 +145,8 @@ const popoutClicked = () => {
   <div class="eagleview-panel">
     <FullScreenEagleviewToggleTab />
 
-    <div class="eagleview-pop-out">
-      <font-awesome-icon
-        icon="fa-external-link"
-        @click="popoutClicked"
-      ></font-awesome-icon>
-    </div>
+    <ParcelsControl />
+    <LabelsControl />
 
     <div
       id="eagleview"
