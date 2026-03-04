@@ -11,7 +11,7 @@ export const useMapStore = defineStore("MapStore", {
       addressMarker: null,
       initialized: false,
       imageryOn: false,
-      imagerySelected: '2024',
+      imagerySelected: '2025',
       eagleviewOn: false,
       eagleviewInitialized: false,
       eagleviewRecordingsOn: false,
