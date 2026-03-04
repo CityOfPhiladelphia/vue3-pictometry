@@ -11,6 +11,13 @@ const imageryInfo = {
       type: 'raster',
       tileSize: 256,
     },
+    2025: {
+      tiles: [
+        'https://tiles.arcgis.com/tiles/fLeGjb7u4uXqeF9q/arcgis/rest/services/CityImagery_2025_3in/MapServer/tile/{z}/{y}/{x}',
+      ],
+      type: 'raster',
+      tileSize: 256,
+    },
     2024: {
       tiles: [
         'https://tiles.arcgis.com/tiles/fLeGjb7u4uXqeF9q/arcgis/rest/services/CityImagery_2024_1in/MapServer/tile/{z}/{y}/{x}',
@@ -1153,6 +1160,11 @@ const $config = {
     imageryLabels: {
       id: 'imageryLabels',
       source: 'imageryLabels',
+      type: 'raster',
+    },
+    2025: {
+      id: '2025',
+      source: '2025',
       type: 'raster',
     },
     2024: {
